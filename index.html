@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decentralized Volunteer Network</title>
+</head>
+<body>
+    <h1>Volunteer Matching</h1>
+    <form id="volunteerForm">
+        <label for="volunteerId">Volunteer ID:</label>
+        <input type="text" id="volunteerId" name="volunteerId"><br><br>
+        <label for="projectId">Project ID:</label>
+        <input type="text" id="projectId" name="projectId"><br><br>
+        <button type="submit">Match Volunteer</button>
+    </form>
+    <script>
+        const form = document.getElementById('volunteerForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const volunteerId = document.getElementById('volunteerId').value;
+            const projectId = document.getElementById('projectId').value;
+
+            const response = await fetch('/match-volunteer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ volunteerId, projectId })
+            });
+            const result = await response.text();
+            alert(result);
+        });
+    </script>
+</body>
+</html>
